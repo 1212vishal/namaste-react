@@ -1,24 +1,37 @@
-const parent=React.createElement("div",
-{id:"parent"},
-[
-React.createElement("div",{id:"child1"},
-[React.createElement("h1",{},"I am H1 tag"),
-React.createElement("h2",{},"I am H2 tag")]
-),
-React.createElement("div",{id:"child2"},
-[React.createElement("h1",{},"I am H1 tag"),
-React.createElement("h2",{},"I am H2 tag")]
-)
-]
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+
+
+const Title=()=>(
+  <h1 classname="heading" tabindex="5">
+ 
+    Namaste React using j_s_x;
+  </h1>
+   
+);
+
+
+ const middle=(
+
+    <h1 className="middle"> midlle elemet of our project</h1>
+ );
+
+
+//componenet composition
+
+const HeadingComponent=()=> (
+   <div id="cointainer">
+    <Title/>
+    {middle}
+    <h1 className="heading1">Namaste React</h1>
+   </div>
+ 
 );
 
 
 
-console.log(parent);
-// const heading=React.createElement("h1",
-// {id:"heading",xyz:"abc"},
-// "hello world from react inside it");
+const root=ReactDOM.createRoot(document.getElementById("root"));
 
-const root=ReactDOM.createRoot(document.getElementById("header"));
- 
-root.render(parent);
+
+root.render(<HeadingComponent/>);
