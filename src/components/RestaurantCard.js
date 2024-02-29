@@ -8,17 +8,19 @@ const RestaurantCard=({resData})=>{
            <img className="res-logo"
         src={ CDN_URL
            +
-          resData.data.cloudinaryImageId
+          resData.info?.cloudinaryImageId
         }></img>
-         <h3>{resData.data.name}</h3>
-         <h4>{resData.data.cuisines}</h4>
-         <h4>{resData.data.avgRating}</h4>
-         <h4>{resData.data.area}</h4>
-         <h4>{resData.data.lastMileTravelString}</h4>
-         <h4>{resData.data.costForTwoString}</h4>
+         <h3>{resData.info?.name}</h3>
+         <h4>{resData.info?.cuisines}</h4>
+         <h4>{resData.info?.avgRating}</h4>
+         <h4>{resData.info?.area}</h4>
+         <h4>{resData.info?.sla?.deliveryTime}   Mins</h4>
+         <h4>{resData.info?.costForTwo}</h4>
          
       </div>
       
     );
  };
+
+
  export default RestaurantCard;

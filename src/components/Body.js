@@ -1,47 +1,29 @@
 import RestaurantCard from "./RestaurantCard";
-import { useState } from "react";
-import resList from "../utils/mockData";
+import { useEffect, useState } from "react";
 
 
+ 
 
 const Body=()=>{
    
-   const [listOfRestaurants,setListOfRestaurant]=useState(resList);
+   const [listOfRestaurants,setListOfRestaurant]=useState([]);
 
-  // let listOfRestaurants=[
-  //   {data: {
-  //     id: "74453",
-  //     name: "Domino's Pizza",
-  //     area: "Athwa",
-  //     cuisines: ["Pizzas"],
-  //     costForTwoString: "₹400 FOR TWO", 
-  //     lastMileTravelString: "2.1 kms",
-  //     cloudinaryImageId: "bz9zkh2aqywjhpankb07",
-  //     avgRating: "4.0",
-  //   }},
-  //   {data: {
-  //     id: "744577",
-  //     name: "Vishal food House",
-  //     area: "Athwa",
-  //     cuisines: ["Pizzas"],
-  //     costForTwoString: "₹400 FOR TWO", 
-  //     lastMileTravelString: "2.1 kms",
-  //     cloudinaryImageId: "bz9zkh2aqywjhpankb07",
-  //     avgRating: "4.6",
-  //   }},
+    useEffect(()=>{
+      fetchData(); 
+     },[]);
 
-  //   {data: {
-  //       id: "81094",
-  //       name: "Richie Rich Juices & Shakes",
-  //       area: "Athwa",
-  //       cloudinaryImageId: "nyp7yrzwc1dc2xqfkydk",
-  //       cuisines: ["Ice Cream"],
-  //       costForTwoString: "₹250 FOR TWO",
-  //       lastMileTravelString: "5.5 kms",
-  //        avgRating: "3.9",
+     const fetchData = async () => {
+
         
-  //   }}
-  // ];
+        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=25.14739718651254&lng=75.86155843969387&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+        const json = await data.json();
+        console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
+        setListOfRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+
+        //console.log(json);
+    
+
+    };
 
     return(
         <div className="body">
@@ -50,7 +32,7 @@ const Body=()=>{
               <button className="filter-btn" 
                onClick={()=>{
                  filterList=listOfRestaurants.filter(
-                  (res)=>res.data.avgRating>=4 );
+                  (res)=>res.info?.avgRating>=4 );
 
                   setListOfRestaurant(filterList);
 
@@ -62,7 +44,7 @@ const Body=()=>{
   
           <div className="res-container">
                 {
-                 listOfRestaurants.map((resturant)=>(<RestaurantCard key={resturant.data.id} resData={resturant}/>))
+                  listOfRestaurants.map((restaurant)=>(<RestaurantCard key={restaurant.info?.id} resData={restaurant}/>))
                 } 
           </div>
   
