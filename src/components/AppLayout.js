@@ -1,10 +1,16 @@
 import Header from "./Header";
 import Body from "./Body";
-import About from "./About";
+
 import Contact from "./Contact";
 import { createBrowserRouter,Outlet} from "react-router-dom";
 import Error from "./Error";
 import RestaurantMenu from "./RestaurantMenu";
+
+import { lazy, Suspense } from "react";
+
+
+const Grocery=lazy(()=>import("./Grocery"));
+const About=lazy(()=>import("./About"));
 
 const AppLayout=()=>{
     return (
@@ -26,7 +32,11 @@ const AppLayout=()=>{
           },
           {
             path:"/about",
-            element:<About/>,
+            element: (<Suspense fallback="Page is loading"><About/></Suspense> ),
+          },
+          {
+            path:"/grocery",
+            element: (<Suspense fallback="Page is loading"><Grocery/></Suspense> ),
           },
           {
           path:"/contact",
